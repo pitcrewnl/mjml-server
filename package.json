@@ -1,10 +1,7 @@
 {
   "name": "mjml-server",
   "private": true,
-  "main": "lib/index.js",
-  "bin": {
-    "mjml-server": "bin/mjml-server"
-  },
+  "main": "index.js",
   "dependencies": {
     "body-parser": "^1.18.3",
     "commander": "^2.20.3",

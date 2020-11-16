@@ -23,7 +23,7 @@ app.use(bodyParser.text({
 var opts = {
     keepComments: (process.env.MJML_KEEP_COMMENTS === 'true'),
     minify: (process.env.MJML_MINIFY === 'true'),
-    validationLevel: (['soft', 'strict', 'skip'].includes(process.env.MJML_VALIDATION_LEVEL) ? process.env.MJML_VALIDATION_LEVEL : 'soft')
+    validationLevel: (['soft', 'strict', 'skip'].includes(process.env.MJML_VALIDATION_LEVEL) ? process.env.MJML_VALIDATION_LEVEL : 'strict')
 };
 
 app.all('*', function (req, res) {
@@ -46,12 +46,8 @@ app.all('*', function (req, res) {
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.end(result.html);
     } catch (ex) {
-        // print error details
-        console.log(req.body || '')
-        console.error(ex);
-        console.log('')
-
-        res.writeHead(400, {'Content-Type': 'text/plain'});
+        res.statusCode = 400;
+        res.send(ex.errors);
         res.end();
     }
 });

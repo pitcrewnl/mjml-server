@@ -1,11 +1,11 @@
-FROM node:alpine
+FROM node:lts-alpine
 
 ENV NODE_ENV=production
 
 ENV CORS=""
 
 ENV MJML_KEEP_COMMENTS=false
-ENV MJML_VALIDATION_LEVEL=soft
+ENV MJML_VALIDATION_LEVEL=strict
 ENV MJML_MINIFY=true
 
 COPY package* ./
