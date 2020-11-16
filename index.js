@@ -37,7 +37,7 @@ app.all('*', function (req, res) {
 
     // ensure content type is set
     if (!req.headers['content-type']) {
-        res.status(500).send('Content-Type must be set, use text/plain if unsure');
+        res.status(415).send('Content-Type must be set, use text/plain if unsure');
         return;
     }
 
@@ -46,8 +46,7 @@ app.all('*', function (req, res) {
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.end(result.html);
     } catch (ex) {
-        res.statusCode = 400;
-        res.send(ex.errors);
+        res.status(400).send(ex.errors);
         res.end();
     }
 });
