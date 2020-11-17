@@ -23,6 +23,9 @@ app.use(bodyParser.text({
 var opts = {
     keepComments: (process.env.MJML_KEEP_COMMENTS === 'true'),
     minify: (process.env.MJML_MINIFY === 'true'),
+    minifyOptions: {
+      collapseWhitespace: true
+    },
     validationLevel: (['soft', 'strict', 'skip'].includes(process.env.MJML_VALIDATION_LEVEL) ? process.env.MJML_VALIDATION_LEVEL : 'strict')
 };
 
@@ -46,7 +49,14 @@ app.all('*', function (req, res) {
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.end(result.html);
     } catch (ex) {
-        res.status(400).send(ex.errors);
+        res.status(400);
+
+        if (ex.name === "TypeError") {
+          res.send([ { line: 0, message: "TypeError" }]);
+        } else {
+          res.send(ex.errors);
+        }
+
         res.end();
     }
 });
