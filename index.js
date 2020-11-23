@@ -29,6 +29,10 @@ var opts = {
     validationLevel: (['soft', 'strict', 'skip'].includes(process.env.MJML_VALIDATION_LEVEL) ? process.env.MJML_VALIDATION_LEVEL : 'strict')
 };
 
+app.get("/health", (req, res) => {
+  res.send({ success: true, message: "Healthy" });
+});
+
 app.all('*', function (req, res) {
     // enable cors
     if (process.env.CORS) {
