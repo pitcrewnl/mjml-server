@@ -38,6 +38,16 @@ app.all('*', function (req, res) {
         res.header("Access-Control-Max-Age", "-1");
     }
 
+    // check token
+    if (process.env.TOKEN) {
+      const authorization = req.header('Authorization');
+
+      if (authorization !== 'Bearer ' + process.env.TOKEN) {
+        res.status(401).send('Bearer token must be specified');
+        return;
+      }
+    }
+
     // ensure content type is set
     if (!req.headers['content-type']) {
         res.status(415).send('Content-Type must be set, use text/plain if unsure');
@@ -88,5 +98,6 @@ console.log('cors: ' + process.env.CORS);
 console.log('mjml keep comments: ' + opts.keepComments);
 console.log('mjml validation level: ' + opts.validationLevel);
 console.log('mjml minify: ' + opts.minify);
+console.log('token: ' + process.env.TOKEN);
 console.log('');
 console.log('POST mjml as text/plain raw body, result will be returned as text/html.');
