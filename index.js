@@ -98,6 +98,6 @@ console.log('cors: ' + process.env.CORS);
 console.log('mjml keep comments: ' + opts.keepComments);
 console.log('mjml validation level: ' + opts.validationLevel);
 console.log('mjml minify: ' + opts.minify);
-console.log('token: ' + process.env.TOKEN);
+console.log('using token: ' + !!process.env.TOKEN);
 console.log('');
 console.log('POST mjml as text/plain raw body, result will be returned as text/html.');
